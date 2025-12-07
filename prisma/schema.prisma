@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Player {
+  id        String   @id @default(cuid())
+  address   String   @unique
+  username  String?
+  wins      Int      @default(0)
+  losses    Int      @default(0)
+  earnings  String   @default("0") // BigInt as string
+  cardCount Int      @default(0)
+  
+  battlesAsWinner Battle[] @relation("winner")
+  battlesAsLoser  Battle[] @relation("loser")
+  cards           Card[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([wins])
+  @@index([earnings])
+}
+
+model Battle {
+  id        String   @id @default(cuid())
+  roomId    String?
+  
+  winnerId  String
+  winner    Player   @relation("winner", fields: [winnerId], references: [id])
+  
+  loserId   String
+  loser     Player   @relation("loser", fields: [loserId], references: [id])
+  
+  stake     String   @default("0") // BigInt as string
+  timestamp BigInt   @default(0)
+  
+  createdAt DateTime @default(now())
+  
+  @@index([winnerId])
+  @@index([loserId])
+  @@index([createdAt])
+}
+
+model Card {
+  id        String   @id @default(cuid())
+  tokenId   BigInt   @unique
+  
+  name      String
+  rarity    String
+  power     Int
+  imageUri  String?
+  
+  ownerId   String
+  owner     Player   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  
+  @@index([ownerId])
+  @@index([tokenId])
+}
+
+model GameConfig {
+  id        String   @id @default("default")
+  
+  mintPrice       String // BigInt as string (0.01 ETH in wei)
+  minStake        String // BigInt as string (0.1 ETH in wei)
+  maxStake        String // BigInt as string (10 ETH in wei)
+  
+  contractAddress String
+  chainId         Int
+  rpcUrl          String
+  
+  updatedAt       DateTime @updatedAt
+}

@@ -1,0 +1,60 @@
+{
+  "name": "monad-farcaster-miniapp-template",
+  "license": "MIT",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "prisma db seed",
+    "db:studio": "prisma studio",
+    "db:reset": "prisma migrate reset"
+  },
+  "dependencies": {
+    "@farcaster/miniapp-core": "^0.3.6",
+    "@farcaster/miniapp-node": "^0.1.6",
+    "@farcaster/miniapp-sdk": "^0.1.7",
+    "@farcaster/miniapp-wagmi-connector": "^1.0.0",
+    "@prisma/client": "5.19.1",
+    "@rainbow-me/rainbowkit": "^2.2.10",
+    "@reown/appkit": "^1.8.12",
+    "@reown/appkit-adapter-wagmi": "^1.8.12",
+    "@tanstack/react-query": "^5.80.5",
+    "@upstash/redis": "^1.35.1",
+    "ethers": "6",
+    "next": "14.2.6",
+    "react": "^18",
+    "react-dom": "^18",
+    "viem": "^2.41.2",
+    "wagmi": "^3.1.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "dotenv-cli": "^11.0.0",
+    "postcss": "^8",
+    "prisma": "5.19.1",
+    "tailwindcss": "^3.4.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5"
+  },
+  "packageManager": "pnpm@10.6.3+sha512.bb45e34d50a9a76e858a95837301bfb6bd6d35aea2c5d52094fa497a467c43f5c440103ce2511e9e0a2f89c3d6071baac3358fc68ac6fb75e2ceb3d2736065e6",
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "@biomejs/biome"
+    ],
+    "onlyBuiltDependencies": [
+      "@biomejs/biome"
+    ]
+  }
+}
